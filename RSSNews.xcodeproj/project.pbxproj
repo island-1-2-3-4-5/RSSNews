@@ -13,10 +13,10 @@
 		0C03CAD92490FFCF0024EBB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C03CAD82490FFCF0024EBB8 /* Assets.xcassets */; };
 		0C03CADC2490FFCF0024EBB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C03CADA2490FFCF0024EBB8 /* LaunchScreen.storyboard */; };
 		0C03CAE4249100FF0024EBB8 /* FeedsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03CAE3249100FF0024EBB8 /* FeedsController.swift */; };
-		0C03CAE6249125710024EBB8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03CAE5249125710024EBB8 /* WebViewController.swift */; };
 		0C03CAE8249128170024EBB8 /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03CAE7249128170024EBB8 /* ParseManager.swift */; };
 		0C03CAEB24912D340024EBB8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C03CAEA24912D340024EBB8 /* WebKit.framework */; };
 		0C03CAED249135850024EBB8 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03CAEC249135850024EBB8 /* CustomTableViewCell.swift */; };
+		0C19B85224919411002FBCEE /* FullTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C19B85124919411002FBCEE /* FullTextViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +28,10 @@
 		0C03CADB2490FFCF0024EBB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C03CADD2490FFCF0024EBB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C03CAE3249100FF0024EBB8 /* FeedsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsController.swift; sourceTree = "<group>"; };
-		0C03CAE5249125710024EBB8 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		0C03CAE7249128170024EBB8 /* ParseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseManager.swift; sourceTree = "<group>"; };
 		0C03CAEA24912D340024EBB8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0C03CAEC249135850024EBB8 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		0C19B85124919411002FBCEE /* FullTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullTextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,10 +68,10 @@
 			children = (
 				0C03CACF2490FFCC0024EBB8 /* AppDelegate.swift */,
 				0C03CAD12490FFCC0024EBB8 /* SceneDelegate.swift */,
+				0C03CAE3249100FF0024EBB8 /* FeedsController.swift */,
+				0C19B85124919411002FBCEE /* FullTextViewController.swift */,
 				0C03CAE7249128170024EBB8 /* ParseManager.swift */,
 				0C03CAEC249135850024EBB8 /* CustomTableViewCell.swift */,
-				0C03CAE3249100FF0024EBB8 /* FeedsController.swift */,
-				0C03CAE5249125710024EBB8 /* WebViewController.swift */,
 				0C03CAD52490FFCC0024EBB8 /* Main.storyboard */,
 				0C03CAD82490FFCF0024EBB8 /* Assets.xcassets */,
 				0C03CADA2490FFCF0024EBB8 /* LaunchScreen.storyboard */,
@@ -159,12 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C19B85224919411002FBCEE /* FullTextViewController.swift in Sources */,
 				0C03CAED249135850024EBB8 /* CustomTableViewCell.swift in Sources */,
 				0C03CAD02490FFCC0024EBB8 /* AppDelegate.swift in Sources */,
 				0C03CAE8249128170024EBB8 /* ParseManager.swift in Sources */,
 				0C03CAE4249100FF0024EBB8 /* FeedsController.swift in Sources */,
 				0C03CAD22490FFCC0024EBB8 /* SceneDelegate.swift in Sources */,
-				0C03CAE6249125710024EBB8 /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

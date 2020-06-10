@@ -12,7 +12,6 @@ class CustomTableViewCell: UITableViewCell {
 
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var headLabel: UILabel!
-    
     @IBOutlet weak var dateLabel: UILabel!
     
 }

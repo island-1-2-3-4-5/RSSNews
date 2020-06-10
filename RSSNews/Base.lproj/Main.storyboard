@@ -41,11 +41,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9K-Ki-dvh">
-                                                    <rect key="frame" x="0.0" y="98" width="49" height="12"/>
+                                                    <rect key="frame" x="0.0" y="98" width="65.5" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="12" id="P8c-Py-hqL"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -72,7 +72,7 @@
                                     <outlet property="dateLabel" destination="p9K-Ki-dvh" id="Pxy-Hv-eth"/>
                                     <outlet property="headLabel" destination="DjY-Sf-LBd" id="v32-KH-KT7"/>
                                     <outlet property="imageOutlet" destination="98B-sR-x5G" id="Xh5-Fn-rLJ"/>
-                                    <segue destination="n4E-QH-bIc" kind="show" identifier="openPage" id="yTq-Sx-a4Q"/>
+                                    <segue destination="JmR-QS-RI7" kind="show" identifier="openPage" id="EcY-yG-32s"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -87,40 +87,72 @@
             </objects>
             <point key="canvasLocation" x="607" y="-23"/>
         </scene>
-        <!--Web View Controller-->
-        <scene sceneID="gzn-GM-qQ7">
+        <!--Full Text View Controller-->
+        <scene sceneID="eDm-3H-scQ">
             <objects>
-                <viewController id="n4E-QH-bIc" customClass="WebViewController" customModule="RSSNews" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="as2-ZC-NZ6">
+                <viewController id="JmR-QS-RI7" customClass="FullTextViewController" customModule="RSSNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L0J-lc-6fC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfL-xL-RBD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ec-Pi-TjV">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EGc-w1-HgH">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="248.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="248.5" id="gmj-kA-1cW"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2P-fa-8QJ">
+                                        <rect key="frame" x="8" y="256.5" width="398" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dZ-iF-VI7">
+                                        <rect key="frame" x="8" y="293.5" width="398" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1dZ-iF-VI7" firstAttribute="leading" secondItem="qf6-VE-87S" secondAttribute="leading" constant="8" id="FVd-sw-tgV"/>
+                                    <constraint firstItem="J2P-fa-8QJ" firstAttribute="top" secondItem="EGc-w1-HgH" secondAttribute="bottom" constant="8" id="KeO-0O-RDZ"/>
+                                    <constraint firstItem="J2P-fa-8QJ" firstAttribute="leading" secondItem="qf6-VE-87S" secondAttribute="leading" constant="8" id="YzK-jN-6G1"/>
+                                    <constraint firstItem="EGc-w1-HgH" firstAttribute="trailing" secondItem="txR-sX-2z4" secondAttribute="trailing" id="aE6-Bs-sR5"/>
+                                    <constraint firstItem="EGc-w1-HgH" firstAttribute="top" secondItem="txR-sX-2z4" secondAttribute="top" id="cvj-5U-u6G"/>
+                                    <constraint firstAttribute="bottom" secondItem="1dZ-iF-VI7" secondAttribute="bottom" constant="8" id="eo3-a2-eP7"/>
+                                    <constraint firstItem="1dZ-iF-VI7" firstAttribute="top" secondItem="J2P-fa-8QJ" secondAttribute="bottom" constant="8" id="h8u-CL-Eiv"/>
+                                    <constraint firstItem="qf6-VE-87S" firstAttribute="trailing" secondItem="1dZ-iF-VI7" secondAttribute="trailing" constant="8" id="iJs-x8-GJc"/>
+                                    <constraint firstItem="EGc-w1-HgH" firstAttribute="leading" secondItem="txR-sX-2z4" secondAttribute="leading" id="jVy-dQ-wzl"/>
+                                    <constraint firstItem="J2P-fa-8QJ" firstAttribute="trailing" secondItem="2Ec-Pi-TjV" secondAttribute="trailingMargin" id="p7n-1c-dYa"/>
+                                    <constraint firstItem="qf6-VE-87S" firstAttribute="trailing" secondItem="J2P-fa-8QJ" secondAttribute="trailing" constant="8" id="xFc-7u-8YY"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="txR-sX-2z4"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="qf6-VE-87S"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="RfL-xL-RBD" firstAttribute="leading" secondItem="FWk-YD-MPe" secondAttribute="leading" id="Bbp-wc-SPx"/>
-                            <constraint firstItem="FWk-YD-MPe" firstAttribute="trailing" secondItem="RfL-xL-RBD" secondAttribute="trailing" id="TsC-0K-GBm"/>
-                            <constraint firstItem="FWk-YD-MPe" firstAttribute="bottom" secondItem="RfL-xL-RBD" secondAttribute="bottom" id="Z3b-nv-3l4"/>
-                            <constraint firstItem="RfL-xL-RBD" firstAttribute="top" secondItem="FWk-YD-MPe" secondAttribute="top" id="kH2-uP-LVd"/>
+                            <constraint firstItem="2Ec-Pi-TjV" firstAttribute="bottom" secondItem="urO-RA-qOU" secondAttribute="bottom" id="7GQ-4c-4sl"/>
+                            <constraint firstItem="2Ec-Pi-TjV" firstAttribute="top" secondItem="urO-RA-qOU" secondAttribute="top" id="KbC-bq-ILm"/>
+                            <constraint firstItem="2Ec-Pi-TjV" firstAttribute="trailing" secondItem="urO-RA-qOU" secondAttribute="trailing" id="XOU-YE-bFg"/>
+                            <constraint firstItem="2Ec-Pi-TjV" firstAttribute="leading" secondItem="urO-RA-qOU" secondAttribute="leading" id="fMF-9F-F7B"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="FWk-YD-MPe"/>
+                        <viewLayoutGuide key="safeArea" id="urO-RA-qOU"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Q5h-PU-fLx"/>
+                    <navigationItem key="navigationItem" id="Xdp-AO-2Mb"/>
                     <connections>
-                        <outlet property="webOutlet" destination="RfL-xL-RBD" id="eCf-oE-Qhn"/>
+                        <outlet property="fullImage" destination="EGc-w1-HgH" id="yXX-ov-p8b"/>
+                        <outlet property="fullTextLabel" destination="1dZ-iF-VI7" id="Kl9-ir-rJb"/>
+                        <outlet property="headerLabel" destination="J2P-fa-8QJ" id="0wp-CN-7hg"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kvU-n8-5So" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eTg-IP-cOV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1433" y="-23"/>
+            <point key="canvasLocation" x="1307.2463768115942" y="-18.080357142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XXG-Bi-aLc">

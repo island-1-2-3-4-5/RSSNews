@@ -65,11 +65,18 @@ class FeedsController: UITableViewController, XMLParserDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "openPage" {
             let indexPath: IndexPath = self.tableView.indexPathForSelectedRow!
-            let selectedFURL: String = (myFeed[indexPath.row] as AnyObject).object(forKey: "link") as! String
-
+        
+            let fullText: String = (myFeed[indexPath.row] as AnyObject).object(forKey: "yandex:full-text") as! String
+            let header: String = (myFeed[indexPath.row] as AnyObject).object(forKey: "title") as! String
+            let url = NSURL(string:feedImgs[indexPath.row] as! String)
+            let data = NSData(contentsOf:url! as URL)
+            let image = UIImage(data:data! as Data)
             
-            let fivc: WebViewController = segue.destination as! WebViewController
-            fivc.selectedFeedURL = selectedFURL as String
+            let fivc: FullTextViewController = segue.destination as! FullTextViewController
+            fivc.fullText = fullText
+            fivc.header = header
+            fivc.imageNews = image
+
         }
     }
 

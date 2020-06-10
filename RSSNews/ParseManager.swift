@@ -15,9 +15,8 @@ class ParseManager: NSObject, XMLParserDelegate {
     var elements = NSMutableDictionary()
     var element = NSString()
     var ftitle = NSMutableString()
-    var link = NSMutableString()
     var img:  [AnyObject] = []
-    var fdescription = NSMutableString()
+    var yandexFullText = NSMutableString()
     var fdate = NSMutableString()
     
     // initilise parser
@@ -47,10 +46,8 @@ class ParseManager: NSObject, XMLParserDelegate {
             elements = [:]
             ftitle = NSMutableString()
             ftitle = ""
-            link = NSMutableString()
-            link = ""
-            fdescription = NSMutableString()
-            fdescription = ""
+            yandexFullText = NSMutableString()
+            yandexFullText = ""
             fdate = NSMutableString()
             fdate = ""
         } else if (element as NSString).isEqual(to: "enclosure") {
@@ -66,11 +63,8 @@ class ParseManager: NSObject, XMLParserDelegate {
             if ftitle != "" {
                 elements.setObject(ftitle, forKey: "title" as NSCopying)
             }
-            if link != "" {
-                elements.setObject(link, forKey: "link" as NSCopying)
-            }
-            if fdescription != "" {
-                elements.setObject(fdescription, forKey: "description" as NSCopying)
+            if yandexFullText != "" {
+                elements.setObject(yandexFullText, forKey: "yandex:full-text" as NSCopying)
             }
             if fdate != "" {
                 elements.setObject(fdate, forKey: "pubDate" as NSCopying)
@@ -82,10 +76,8 @@ class ParseManager: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if element.isEqual(to: "title") {
             ftitle.append(string)
-        } else if element.isEqual(to: "link") {
-            link.append(string)
-        } else if element.isEqual(to: "description") {
-            fdescription.append(string)
+        } else if element.isEqual(to: "yandex:full-text") {
+            yandexFullText.append(string)
         } else if element.isEqual(to: "pubDate") {
             fdate.append(string)
         }
