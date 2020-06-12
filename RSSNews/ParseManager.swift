@@ -8,78 +8,102 @@
 
 import UIKit
 
-class ParseManager: NSObject, XMLParserDelegate {
+struct Feed{
+    var img : UIImage?
+    var element : String?
+    var ftitle : String?
+    var yandexFullText : String?
+    var fdate : String?
+    var category : String?
+}
+
+
+
+class ParseManager: UIViewController, XMLParserDelegate {
     
     var parser = XMLParser()
-    var feeds = NSMutableArray()
-    var elements = NSMutableDictionary()
-    var element = NSString()
-    var ftitle = NSMutableString()
-    var img:  [AnyObject] = []
-    var yandexFullText = NSMutableString()
-    var fdate = NSMutableString()
+    var feeds : [Feed] = []
     
-    // initilise parser
+    // свойства
+    var img = UIImage()
+    var element = String()
+    var ftitle = String()
+    var yandexFullText = String()
+    var fdate = String()
+    var category = String()
+    
+    
+    var elementName: String = String()
+    
+
+   
     func initWithURL(_ url :URL) -> AnyObject {
-        startParse(url)
+        parser = XMLParser(contentsOf: url)!
+        parser.delegate = self
+        parser.parse()
         return self
     }
     
-    func startParse(_ url :URL) {
-        feeds = []
-        parser = XMLParser(contentsOf: url)!
-        parser.delegate = self
-        parser.shouldProcessNamespaces = false
-        parser.shouldReportNamespacePrefixes = false
-        parser.shouldResolveExternalEntities = false
-        parser.parse()
-    }
+  
     
-    func allFeeds() -> NSMutableArray {
-        return feeds
-    }
     
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-        element = elementName as NSString
-        if (element as NSString).isEqual(to: "item") {
-            elements =  NSMutableDictionary()
-            elements = [:]
-            ftitle = NSMutableString()
-            ftitle = ""
-            yandexFullText = NSMutableString()
-            yandexFullText = ""
-            fdate = NSMutableString()
-            fdate = ""
-        } else if (element as NSString).isEqual(to: "enclosure") {
-            if let urlString = attributeDict["url"] {
-                img.append(urlString as AnyObject)
-            }
+
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        
+        if elementName == "item" {
+            element = String()
+            ftitle = String()
+            yandexFullText = String()
+            fdate = String()
+            category = String()
+            
         }
+        else if elementName == "enclosure" {
+            let urlString = URL(string: attributeDict["url"]!)
+               
+            if let data = try? Data(contentsOf: urlString!)
+            {
+                img = UIImage(data: data)!
+            }
+            
+        }
+        self.elementName = elementName
+        
     }
+        
+    
+    
+    
+    
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 
-        if (elementName as NSString).isEqual(to: "item") {
-            if ftitle != "" {
-                elements.setObject(ftitle, forKey: "title" as NSCopying)
-            }
-            if yandexFullText != "" {
-                elements.setObject(yandexFullText, forKey: "yandex:full-text" as NSCopying)
-            }
-            if fdate != "" {
-                elements.setObject(fdate, forKey: "pubDate" as NSCopying)
-            }
-            feeds.add(elements)
+        if elementName == "item" {
+         let elements = Feed(img: img, element: element, ftitle: ftitle, yandexFullText: yandexFullText, fdate: fdate, category: category)
+            feeds.append(elements)
         }
-    }
+        
+        }
+    
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        if element.isEqual(to: "title") {
-            ftitle.append(string)
-        } else if element.isEqual(to: "yandex:full-text") {
-            yandexFullText.append(string)
-        } else if element.isEqual(to: "pubDate") {
-            fdate.append(string)
+        
+        let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+        if (!data.isEmpty) {
+            if self.elementName == "title" {
+                ftitle += data
+            }
+            else if self.elementName == "yandex:full-text" {
+                yandexFullText += data
+            } else if self.elementName == "pubDate" {
+                fdate += data
+            } else if self.elementName == "category" {
+                category += data
+            }
         }
-    }
+        
+        }
 }
+
