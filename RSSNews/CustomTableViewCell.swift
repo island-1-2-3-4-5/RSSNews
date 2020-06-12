@@ -14,4 +14,6 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var headLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var categoryLabel: UILabel!
+    
 }

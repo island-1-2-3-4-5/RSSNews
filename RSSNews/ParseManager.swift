@@ -9,7 +9,7 @@
 import UIKit
 
 struct Feed{
-    var img : UIImage?
+    var img : Data?
     var element : String?
     var ftitle : String?
     var yandexFullText : String?
@@ -19,13 +19,13 @@ struct Feed{
 
 
 
-class ParseManager: UIViewController, XMLParserDelegate {
+class ParseManager: NSObject, XMLParserDelegate {
     
     var parser = XMLParser()
     var feeds : [Feed] = []
     
     // свойства
-    var img = UIImage()
+    var img = Data()
     var element = String()
     var ftitle = String()
     var yandexFullText = String()
@@ -46,9 +46,6 @@ class ParseManager: UIViewController, XMLParserDelegate {
     
   
     
-    
-
-    
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         
         if elementName == "item" {
@@ -64,7 +61,7 @@ class ParseManager: UIViewController, XMLParserDelegate {
                
             if let data = try? Data(contentsOf: urlString!)
             {
-                img = UIImage(data: data)!
+                img =  data
             }
             
         }
@@ -72,10 +69,7 @@ class ParseManager: UIViewController, XMLParserDelegate {
         
     }
         
-    
-    
-    
-    
+
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 
