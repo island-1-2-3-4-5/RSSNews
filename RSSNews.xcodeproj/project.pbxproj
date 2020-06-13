@@ -68,9 +68,9 @@
 			children = (
 				0C03CACF2490FFCC0024EBB8 /* AppDelegate.swift */,
 				0C03CAD12490FFCC0024EBB8 /* SceneDelegate.swift */,
+				0C03CAE7249128170024EBB8 /* ParseManager.swift */,
 				0C03CAE3249100FF0024EBB8 /* FeedsController.swift */,
 				0C19B85124919411002FBCEE /* FullTextViewController.swift */,
-				0C03CAE7249128170024EBB8 /* ParseManager.swift */,
 				0C03CAEC249135850024EBB8 /* CustomTableViewCell.swift */,
 				0C03CAD52490FFCC0024EBB8 /* Main.storyboard */,
 				0C03CAD82490FFCF0024EBB8 /* Assets.xcassets */,

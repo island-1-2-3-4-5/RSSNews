@@ -18,7 +18,6 @@ struct Feed{
 }
 
 
-
 class ParseManager: NSObject, XMLParserDelegate {
     
     var parser = XMLParser()
@@ -31,20 +30,15 @@ class ParseManager: NSObject, XMLParserDelegate {
     var yandexFullText = String()
     var fdate = String()
     var category = String()
-    
-    
     var elementName: String = String()
     
 
-   
     func initWithURL(_ url :URL) -> AnyObject {
         parser = XMLParser(contentsOf: url)!
         parser.delegate = self
         parser.parse()
         return self
     }
-    
-  
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         
@@ -54,19 +48,11 @@ class ParseManager: NSObject, XMLParserDelegate {
             yandexFullText = String()
             fdate = String()
             category = String()
-            
-        }
-        else if elementName == "enclosure" {
+        } else if elementName == "enclosure" {
             let urlString = URL(string: attributeDict["url"]!)
-               
-            if let data = try? Data(contentsOf: urlString!)
-            {
-                img =  data
-            }
-            
+            if let data = try? Data(contentsOf: urlString!) { img =  data }
         }
         self.elementName = elementName
-        
     }
         
 
@@ -74,11 +60,15 @@ class ParseManager: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
 
         if elementName == "item" {
-         let elements = Feed(img: img, element: element, ftitle: ftitle, yandexFullText: yandexFullText, fdate: fdate, category: category)
+         let elements = Feed(img: img,
+                             element: element,
+                             ftitle: ftitle,
+                             yandexFullText: yandexFullText,
+                             fdate: fdate,
+                             category: category)
             feeds.append(elements)
         }
-        
-        }
+    }
     
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
@@ -88,8 +78,7 @@ class ParseManager: NSObject, XMLParserDelegate {
         if (!data.isEmpty) {
             if self.elementName == "title" {
                 ftitle += data
-            }
-            else if self.elementName == "yandex:full-text" {
+            } else if self.elementName == "yandex:full-text" {
                 yandexFullText += data
             } else if self.elementName == "pubDate" {
                 fdate += data
@@ -97,7 +86,6 @@ class ParseManager: NSObject, XMLParserDelegate {
                 category += data
             }
         }
-        
-        }
+    }
 }
 
