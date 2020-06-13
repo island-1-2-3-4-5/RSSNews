@@ -14,13 +14,14 @@ class FeedsController: UIViewController, XMLParserDelegate {
     @IBOutlet weak var categoryTextField: UITextField!
     
     
-    
+    // основной массив с новостями
     var myFeed = [Feed]()
-    var feeds = [Feed]()
+    var feeds = [Feed]() // дублирующий для фильтрации
     var url = URL(string: "https://www.vesti.ru/vesti.rss")!
-    var categoryArray = ["Культура", "Спорт", "Общество", "Экономика", "Медицина",
-                         "Происшествия", "Авто", "В мире", "Оборона и безопасность",
-                         "Политика", "Наука", "75 лет Победы", "Hi-Tech"]
+    var categoryArray = ["Культура", "Спорт", "Общество", "Экономика",
+                         "Медицина", "Происшествия", "Авто", "В мире",
+                         "Оборона и безопасность", "Политика", "Наука",
+                         "75 лет Победы", "Hi-Tech"]
     
    
     override func viewDidLoad() {
@@ -43,8 +44,11 @@ class FeedsController: UIViewController, XMLParserDelegate {
            return refreshControl
        }()
     
-    
+    // Для снятия фильтра нужно сделать pull to refresh
     @objc private func refresh(sender: UIRefreshControl){
+        // пока данные грузятся из интернета, очищаем основной массив
+        myFeed.removeAll()
+        // добавляем данные из второстепенного (чтобы снять фильтр)
         myFeed = feeds
         tableView.reloadData()
         reloadData()
@@ -63,17 +67,19 @@ class FeedsController: UIViewController, XMLParserDelegate {
         categoryTextField.text = ""
     }
     
-    
+    // загрузка данных с сайта
     func loadData() {
         let myParser : ParseManager = ParseManager().initWithURL(url) as! ParseManager
         // Добавляем заголовок и картинку в массив
         myFeed = myParser.feeds
+        // этот массив нужен при фильтрации
         feeds = myParser.feeds
         tableView.reloadData()
     }
     
     
     // MARK: Sorting
+    // создаем Picker для выбора категорий
     func choiceCategory() {
            let elementPicker = UIPickerView()
            elementPicker.delegate = self
@@ -81,7 +87,7 @@ class FeedsController: UIViewController, XMLParserDelegate {
            createToolbar()
        }
        
-    
+    // создаем Toolbar
        func createToolbar() {
            let toolbar = UIToolbar()
            toolbar.sizeToFit()
@@ -95,7 +101,7 @@ class FeedsController: UIViewController, XMLParserDelegate {
            categoryTextField.inputAccessoryView = toolbar
        }
     
-    
+    // убираем Пикер
        @objc func dismissKeyboard() {
            view.endEditing(true)
        }
@@ -106,7 +112,7 @@ class FeedsController: UIViewController, XMLParserDelegate {
         if segue.identifier == "openPage" {
             let fivc: FullTextViewController = segue.destination as! FullTextViewController
             let indexPath: IndexPath = self.tableView.indexPathForSelectedRow!
-
+            // передаем на второй экран информацию об выбранной ности
             fivc.fullText = myFeed[indexPath.row].yandexFullText!
             fivc.header = myFeed[indexPath.row].ftitle!
             fivc.imageNews = UIImage(data: myFeed[indexPath.row].img!)!
@@ -124,6 +130,7 @@ class FeedsController: UIViewController, XMLParserDelegate {
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
 
+        // устанавливаем значения outlets для ячейки
         cell.imageOutlet.image = UIImage(data: myFeed[indexPath.row].img!)!
         cell.headLabel.text = myFeed[indexPath.row].ftitle
         cell.dateLabel.text = myFeed[indexPath.row].fdate
@@ -159,15 +166,14 @@ extension FeedsController: UIPickerViewDelegate, UIPickerViewDataSource, UITable
     
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-        var index = -1
+        // очищаем основной массив, что добавлять в него отфильтрованные новости
+        myFeed.removeAll()
+        // присваиваем текстовому полю значение выбранной категории
         categoryTextField.text = categoryArray[row]
-        
-        for i in myFeed {
-            index += 1
-            if i.category != categoryTextField.text{
-                myFeed.remove(at: index)
-                index -= 1
+        // перебираем дублирующий массив и добавляем в основной нужные новости
+        for i in feeds {
+            if i.category == categoryTextField.text{
+                myFeed.append(i)
                 tableView.reloadData()
             }
         }
