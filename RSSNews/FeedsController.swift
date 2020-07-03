@@ -124,6 +124,10 @@ class FeedsController: UIViewController, XMLParserDelegate {
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myFeed.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           tableView.deselectRow(at: indexPath, animated: true)
+       }
 
     
     // MARK: Настройка ячейки
