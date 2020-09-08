@@ -18,11 +18,13 @@ class FeedsController: UIViewController, XMLParserDelegate {
     var myFeed = [Feed]()
     var feeds = [Feed]() // дублирующий для фильтрации
     var url = URL(string: "https://www.vesti.ru/vesti.rss")!
-    var categoryArray = ["Культура", "Спорт", "Общество", "Экономика",
-                         "Медицина", "Происшествия", "Авто", "В мире",
-                         "Оборона и безопасность", "Политика", "Наука",
-                         "75 лет Победы", "Hi-Tech"]
     
+    
+    var categorySet : Set<String> = []
+
+    var categoryArray : [String] = []
+    
+
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,8 @@ class FeedsController: UIViewController, XMLParserDelegate {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         loadData()
+        categoryArrayUpdate()
+        
         tableView.refreshControl = myRefreshControl
         choiceCategory()
        }
@@ -67,6 +71,7 @@ class FeedsController: UIViewController, XMLParserDelegate {
         categoryTextField.text = ""
     }
     
+    
     // загрузка данных с сайта
     func loadData() {
         let myParser : ParseManager = ParseManager().initWithURL(url) as! ParseManager
@@ -75,6 +80,17 @@ class FeedsController: UIViewController, XMLParserDelegate {
         // этот массив нужен при фильтрации
         feeds = myParser.feeds
         tableView.reloadData()
+    }
+    
+    
+    func categoryArrayUpdate(){
+        for i in myFeed{
+            categorySet.insert(i.category!)
+        }
+        
+        for i in categorySet{
+            categoryArray.append(i)
+        }
     }
     
     
@@ -160,11 +176,14 @@ extension FeedsController: UIPickerViewDelegate, UIPickerViewDataSource, UITable
     
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+
         return categoryArray.count
     }
     
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
         return categoryArray[row]
     }
     
